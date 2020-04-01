@@ -3,12 +3,11 @@
     <div>
         <p>推荐</p>
         <ul class="list">
-            <a href="/find"><li>发现音乐</li></a>
+            <a href="/#/find"><li>发现音乐</li></a>
             <a href=""><li>私人FM</li></a>
             <a href=""><li>LOOK直播</li></a>
             <a href=""><li>视频</li></a>
             <a href=""><li>朋友</li></a>
-            <router-link to='/find'>Find</router-link>
         </ul>
     </div>
     <div>
@@ -36,17 +35,15 @@
     width: 180px;
     height: 500px;
     background-color: rgb(245,245,247);
+    margin:0;
 }
 #sidebar a{
-    text-decoration: none;
     color: rgb(109, 101, 101);
 }
 #sidebar a:focus{
-    text-decoration: none;
     color: black;
 }
 #sidebar li{
-    list-style-type:none;
     line-height: 30px;
     font-size: 13px;
 }

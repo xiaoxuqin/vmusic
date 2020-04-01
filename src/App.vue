@@ -3,13 +3,21 @@
     <div id="top">
       <Topbar />
     </div>
-    <div id="side">
-      <Sidebar />
+    <div style="width: 100%;">
+      <div id="side">
+        <Sidebar />
+      </div>
+      <div id="container">
+        <router-view/>
+      </div>
     </div>
+    
+    
     <div id='foot'>
       <Footbar />
     </div>
-    <!-- <router-view link to='find'>fff</router-view> -->
+    
+    
   </div>
 </template>
 
@@ -42,10 +50,25 @@ export default {
   width: 100%;
   height: 50px;
 }
+a{
+  text-decoration: none;
+}
+li{
+  list-style-type:none;
+}
 #side{
-  width: 180px;
+  width: 15%;
   height: 500px;
   margin-left: 0;
+  float: left;
+  /* border: 1px red solid; */
+}
+#container{
+  width: 85%;
+  height: 500px;
+  /* float: right; */
+  margin-left: 16%;
+  /* border: 1px yellow solid; */
 }
 #foot{
   width: 100%;
