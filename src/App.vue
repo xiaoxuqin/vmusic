@@ -11,8 +11,6 @@
         <router-view/>
       </div>
     </div>
-    
-    
     <div id='foot'>
       <Footbar />
     </div>

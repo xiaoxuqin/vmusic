@@ -1,21 +1,22 @@
 <template>
   <div id="find">
       <ul>
-        <a href="/#/find"><li>个性推荐</li></a>
+        <a href="/#/find/recommend"><li>个性推荐</li></a>
         <a href="/#/find/songlist"><li>歌单</li></a>
         <a href="/#/find/radio"><li>主播电台</li></a>
         <a href="/#/find/rank"><li>排行榜</li></a>
         <a href="/#/find/singer"><li>歌手</li></a>
         <a href="/#/find/newmusic"><li>最新音乐</li></a>
       </ul>
-      <div id='find_container'>
+      <div id="find_container">
         <router-view />
       </div>
     
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
+
   export default {
       name:'Find'
   }

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Find from '../find/Find.vue'
 import Songlist from '../find/Songlist.vue'
+import Recommend from '../find/Recommend.vue'
 import Radio from '../find/Radio.vue'
 import Rank from '../find/Rank.vue'
 import Singer from '../find/Singer.vue'
@@ -19,13 +20,25 @@ export default new Router({
         {
             path:'/find',
             name:'Find',
-            component:Find
+            component:Find,
+            children:[
+                {
+                    path:'/',
+                    name:'Recommend',
+                    component:Recommend
+                },
+                {
+                    path:'/songlist',
+                    name:'Songlist',
+                    component:Songlist
+                }
+            ]
         },
-        {
-            path:'/find/songlist',
-            name:'Songlist',
-            component:Songlist
-        },
+        // {
+        //     path:'/find/songlist',
+        //     name:'Songlist',
+        //     component:Songlist
+        // },
         {
             path:'/find/radio',
             name:'Radio',
