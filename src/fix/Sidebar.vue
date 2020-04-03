@@ -3,24 +3,23 @@
     <div>
         <p>推荐</p>
         <ul class="list">
-            <a href="/#/find"><li>发现音乐</li></a>
-            <a href=""><li>私人FM</li></a>
-            <a href=""><li>LOOK直播</li></a>
-            <a href=""><li>视频</li></a>
-            <a href=""><li>朋友</li></a>
+            <router-link to="/find"><li>发现音乐</li></router-link>
+            <router-link to="/private"><li>私人FM</li></router-link>
+            <router-link to="/looklive"><li>LOOK直播</li></router-link>
+            <router-link to="/video"><li>视频</li></router-link>
+            <router-link to="/friend"><li>朋友</li></router-link>
         </ul>
     </div>
     <div>
         <p>我的音乐</p>
         <ul class="list">
-            <a href=""><li>本地音乐</li></a>
-            <a href=""><li>下载管理</li></a>
-            <a href=""><li>我的音乐云盘</li></a>
-            <a href=""><li>我的电台</li></a>
-            <a href=""><li>我的收藏</li></a>
+            <router-link to=""><li>本地音乐</li></router-link>
+            <router-link to=""><li>下载管理</li></router-link>
+            <router-link to=""><li>我的音乐云盘</li></router-link>
+            <router-link to=""><li>我的电台</li></router-link>
+            <router-link to=""><li>我的收藏</li></router-link>
         </ul>
     </div>
-    
   </div>
 </template>
 

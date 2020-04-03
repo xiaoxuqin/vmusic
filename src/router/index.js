@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Find from '../find/Find.vue'
+import PrivateFM from '../privateFM/PrivateFM.vue'
+import Looklive from '../looklive/Looklive.vue'
+import Video from '../video/Video.vue'
+import Friend from '../friend/Friend.vue'
 import Songlist from '../find/Songlist.vue'
 import Recommend from '../find/Recommend.vue'
 import Radio from '../find/Radio.vue'
@@ -23,41 +27,61 @@ export default new Router({
             component:Find,
             children:[
                 {
-                    path:'/',
+                    path:'',
                     name:'Recommend',
                     component:Recommend
                 },
                 {
-                    path:'/songlist',
+                    path:'recommend',
+                    name:'Recommend',
+                    component:Recommend
+                },
+                {
+                    path:'songlist',
                     name:'Songlist',
                     component:Songlist
-                }
+                },
+                {
+                    path:'radio',
+                    name:'Radio',
+                    component:Radio
+                },
+                {
+                    path:'rank',
+                    name:'Rank',
+                    component:Rank
+                },
+                {
+                    path:'singer',
+                    name:'Singer',
+                    component:Singer
+                },
+                {
+                    path:'newmusic',
+                    name:'Newmusic',
+                    component:Newmusic
+                },
             ]
         },
-        // {
-        //     path:'/find/songlist',
-        //     name:'Songlist',
-        //     component:Songlist
-        // },
         {
-            path:'/find/radio',
-            name:'Radio',
-            component:Radio
+            path:'/private',
+            name:'PievateFM',
+            component:PrivateFM
         },
         {
-            path:'/find/rank',
-            name:'Rank',
-            component:Rank
+            path:'/looklive',
+            name:'Looklive',
+            component:Looklive
         },
         {
-            path:'/find/singer',
-            name:'Singer',
-            component:Singer
+            path:'/video',
+            name:'Video',
+            component:Video
         },
         {
-            path:'/find/newmusic',
-            name:'Newmusic',
-            component:Newmusic
-        },
+            path:'/friend',
+            name:'Friend',
+            component:Friend
+        }
     ]
 })

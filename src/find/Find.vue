@@ -1,17 +1,16 @@
 <template>
   <div id="find">
       <ul>
-        <a href="/#/find/recommend"><li>个性推荐</li></a>
-        <a href="/#/find/songlist"><li>歌单</li></a>
-        <a href="/#/find/radio"><li>主播电台</li></a>
-        <a href="/#/find/rank"><li>排行榜</li></a>
-        <a href="/#/find/singer"><li>歌手</li></a>
-        <a href="/#/find/newmusic"><li>最新音乐</li></a>
+        <router-link to="/find/recommend"><li>个性推荐</li></router-link>
+        <router-link to="/find/songlist"><li>歌单</li></router-link>
+        <router-link to="/find/radio"><li>主播电台</li></router-link>
+        <router-link to="/find/rank"><li>排行榜</li></router-link>
+        <router-link to="/find/singer"><li>歌手</li></router-link>
+        <router-link to="/find/newmusic"><li>最新音乐</li></router-link>
       </ul>
       <div id="find_container">
         <router-view />
       </div>
-    
   </div>
 </template>
 
