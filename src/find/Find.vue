@@ -23,16 +23,12 @@
 
  
 <style>
-
-#find{
-  padding-left: 2%;
-}
 #find ul{
   width: 75%;
   height: 40px;
   border-bottom: 1px #ccc solid;
   line-height: 40px;
-  padding-left: 120px;
+  padding-left: 140px;
 }
 #find li{
   width: 90px;
@@ -47,7 +43,7 @@
 }
 #find_container{
   width: 90%;
-  height: 440px;
+  height: 500px;
   border: 1px solid yellow;
 }
 </style>

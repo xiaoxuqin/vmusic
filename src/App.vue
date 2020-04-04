@@ -56,14 +56,14 @@ li{
 }
 #side{
   width: 15%;
-  height: 500px;
+  height: 550px;
   margin-left: 0;
   float: left;
   /* border: 1px red solid; */
 }
 #container{
   width: 85%;
-  height: 500px;
+  height: 550px;
   /* float: right; */
   margin-left: 16%;
   /* border: 1px yellow solid; */

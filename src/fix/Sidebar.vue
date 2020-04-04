@@ -32,7 +32,7 @@
 <style>
 #sidebar{
     width: 180px;
-    height: 500px;
+    height: 550px;
     background-color: rgb(245,245,247);
     margin:0;
 }

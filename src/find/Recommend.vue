@@ -11,7 +11,7 @@
 <script>
 import {start} from '../api/api'
 export default {
-  name:'Recommond',
+  name:'Recommond', 
   data() {
     return {
       assemb: []
