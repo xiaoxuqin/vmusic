@@ -21,7 +21,7 @@ export const start = () => {
 export const songlist = () => {
     return axios.request({
         method: 'get',
-        url: '//www.zhuoran.fun:3000/top/playlist?limit=9'
+        url: 'http://www.zhuoran.fun:3000/top/playlist'
     })
 }
 

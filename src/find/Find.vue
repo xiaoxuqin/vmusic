@@ -44,6 +44,7 @@
 #find_container{
   width: 90%;
   height: 500px;
-  /* border: 1px solid yellow; */
+  overflow: hidden;
+  overflow-y: scroll;
 }
 </style>
