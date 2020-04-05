@@ -44,6 +44,6 @@
 #find_container{
   width: 90%;
   height: 500px;
-  border: 1px solid yellow;
+  /* border: 1px solid yellow; */
 }
 </style>
