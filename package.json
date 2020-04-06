@@ -23,5 +23,18 @@
   "browserslist": [
     "> 1%",
     "last 2 versions"
-  ]
+  ],
+  "description": "```\r npm install\r ```",
+  "main": "vue.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiaoxuqin/vmusic.git"
+  },
+  "keywords": [],
+  "author": "xiaoxu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xiaoxuqin/vmusic/issues"
+  },
+  "homepage": "https://github.com/xiaoxuqin/vmusic#readme"
 }
