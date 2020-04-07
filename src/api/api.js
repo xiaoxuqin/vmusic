@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 // 允许跨域携带cookie
-// axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;
 
 export const uploadelf = () => {
     return axios.request({
@@ -14,7 +14,7 @@ export const uploadelf = () => {
 export const start = () => {
     return axios.request({
         method: 'get',
-        url: 'http://www.zhuoran.fun:3000/personalized'
+        url: 'http://www.zhuoran.fun:3000/personalized?limit=14'
     })
 }
 
@@ -22,6 +22,13 @@ export const songlist = () => {
     return axios.request({
         method: 'get',
         url: 'http://www.zhuoran.fun:3000/top/playlist'
+    })
+}
+
+export const playlist = () => {
+    return axios.request({
+        method: 'get',
+        url: 'http://www.zhuoran.fun:3000/playlist/detail'
     })
 }
 

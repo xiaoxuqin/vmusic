@@ -59,19 +59,17 @@ li{
   height: 550px;
   margin-left: 0;
   float: left;
-  /* border: 1px red solid; */
 }
 #container{
   width: 85%;
   height: 550px;
-  /* float: right; */
   margin-left: 16%;
-  /* border: 1px yellow solid; */
 }
 #foot{
   width: 100%;
   height: 50px;
-  border: 1px blue solid;
+  border: 1px rgb(218, 218, 221) solid;
   margin-bottom: 0;
+  background-color: rgb(246,246,248);
 }
 </style>

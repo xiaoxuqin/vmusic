@@ -16,7 +16,7 @@
             <img :src=item.coverImgUrl alt="">
             <p class="playCount">{{item.playCount}}</p>
             <p class="nickname">{{item.creator.nickname}}</p>
-            <img src="../../assect/play.png" alt="" class="play">
+            <img src="../assets/play.png" alt="" class="play">
           </div>
           <p class="name">{{item.name}}</p>
         </div>      
@@ -39,9 +39,9 @@
   },
   
   beforeMount:function(){
-    console.log('初始化之后');
+    // console.log('初始化之后');
     songlist().then(res => {
-      console.log('start --->', res.data.playlists);
+      // console.log(res.data.playlists[0]);
       this.list = res.data.playlists;
     }).catch(error => {
       console.log(error);
@@ -61,6 +61,7 @@
   margin-left: 15px;
   margin-right: 20px;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 .songlist_img{
   width: 180px;
@@ -99,7 +100,5 @@
   padding:0 5px;
   line-height: 15px;
 }
-
-
 </style>
   

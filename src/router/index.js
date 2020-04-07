@@ -11,6 +11,7 @@ import Radio from '../find/Radio.vue'
 import Rank from '../find/Rank.vue'
 import Singer from '../find/Singer.vue'
 import Newmusic from '../find/Newmusic.vue'
+import Recomitem from '../musicitem/Recomitem.vue'
 
 
 Vue.use(Router);
@@ -63,6 +64,19 @@ export default new Router({
                 },
             ]
         },
+        {
+            path:'/recomitem',
+            name:'Recomitem',
+            component:Recomitem
+        },
+
+
+
+
+
+
+
+
         {
             path:'/private',
             name:'PievateFM',
