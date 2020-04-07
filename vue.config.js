@@ -9,7 +9,7 @@ module.exports = {
     hotOnly: true,
     proxy: {
       '/api': {
-        target: 'http://www.zhuoran.fun:3000/top/playlist', //API服务器的地址
+        target: 'http://www.zhuoran.fun:3000/', //API服务器的地址
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

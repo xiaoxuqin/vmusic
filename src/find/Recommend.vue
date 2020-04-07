@@ -11,7 +11,7 @@
         <div class="recommend_item" v-for="item in list">
           <router-link :to="{name:'Recomitem', params:{id:item.id,}}">
           <div class="recommend_img">
-            <img :src=item.picUrl alt="">
+            <img :src=item.coverImgUrl alt="">
             <p class="playCount">{{item.playCount}}</p>
             <img src="../assets/play.png" alt="" class="play">
           </div>
@@ -34,8 +34,8 @@ export default {
   },
   beforeMount:function(){
     start().then(res => {
-      // console.log(res.data);
-      this.list = res.data.result;
+      console.log(res.data);
+      this.list = res.data.playlists;
     }).catch(error => {
       console.log(error);
     });
