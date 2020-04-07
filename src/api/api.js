@@ -17,14 +17,14 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 export const start = () => {
     return axios.request({
         method: 'get',
-        url: '/personalized?limit=14'
+        url: 'http://www.zhuoran.fun:3000/personalized?limit=14'
     })
 }
 
 export const songlist = () => {
     return axios.request({
         method: 'get',
-        url: '/top/playlist'
+        url: 'http://www.zhuoran.fun:3000/top/playlist'
     })
 }
 
