@@ -11,13 +11,19 @@
         <p class="descri">简介：{{musiclist.description}}</p>
       </div>
     </div>
-    <div class="musiclist" style="padding-left: 20px;">
-      <ul v-for="(item,index) in musiclist.tracks" :key='index'>
+    <div class="musiclist">
+      <ul>
+          <span id="musicindex"></span>
+          <span id="musictitle">音乐标题</span>
+          <span id="musicsinger">歌手</span>
+          <span>专辑</span>
+      </ul>
+      <ul v-for="(item,index) in musiclist.tracks" :key="index">
         <li>
-          <span>{{index}}</span>...
-          <span>{{item.name}}</span> ...
-          <span>{{item.al.name}}</span>
-
+          <span class="indexnum">{{index+1}}</span>
+          <span class="songname">{{item.name}}</span>
+          <span class="singername">{{item.ar[0].name}}</span>
+          <span class="zhuanji">{{item.al.name}}</span>
         </li>
       </ul>
     </div>
@@ -53,7 +59,6 @@ export default {
 #recommitem{
   width: 85%;
   height: 510px;
-  border: 1px orange solid;
   padding-top: 30px;
   overflow: hidden;
   overflow-y: scroll;
@@ -66,7 +71,8 @@ export default {
 }
 #recommitem .toptitle .description{
   height: 200px;
-  padding-right: 35px;
+  padding-right: 100px;
+  overflow: hidden;
 }
 #recommitem .toptitle .description .listname{
   font-size: 25px;
@@ -75,7 +81,7 @@ export default {
 #recommitem .toptitle .description .creator {
   height: 30px;
   line-height: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 23px;
   font-size: 14px;
 }
 #recommitem .toptitle .description .creator img{
@@ -88,4 +94,45 @@ export default {
 #recommitem .toptitle .description .descri{
   font-size: 14px;
 }
+.musiclist{
+  padding:10px  10px;
+  background-color: rgb(250, 250, 250);
+  font-size: 13px;
+}
+.musiclist li{
+  width: 100%;
+  height: 25px;
+  border-bottom: 1px rgb(231, 231, 231) solid;
+  line-height: 25px;
+  overflow: hidden;
+  cursor: default;
+}
+.musiclist li .indexnum, #musicindex{
+  width: 30px;
+  height: 20px;
+  display: inline-block;
+  overflow: hidden;
+  text-align: center;
+}
+.musiclist li .songname, #musictitle{
+  width:200px;
+  height: 20px;
+  display: inline-block;
+  margin-right: 80px;
+  overflow: hidden;
+}
+.musiclist li .singername, #musicsinger{
+  width:150px;
+  height: 20px;
+  display: inline-block;
+  margin-right: 60px;
+  overflow: hidden;
+}
+.musiclist li .zhuanji{
+  width: 230px;
+  height: 20px;
+  display: inline-block;
+  overflow: hidden;
+}
 </style>
+li:nth-child(3n){background:orange;}

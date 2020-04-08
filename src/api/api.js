@@ -14,18 +14,11 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 // export default http;
 
 
-// export const uploadelf = () => {
-//     return axios.request({
-//         method: 'post',
-//         url: 'http://xxxxx.xxx/api/uploadelf'
-//     })
-// }
-
 
 export const start = () => {
     return axios.request({
         method: 'get',
-        url: 'http://www.zhuoran.fun:3000/personalized?limit=14'
+        url: 'http://www.zhuoran.fun:3000/personalized'
     })
 }
 
@@ -37,14 +30,6 @@ export const songlist = () => {
 }
 
 
-// export const playlist = () => {
-//     return axios.request({
-//         method: 'get',
-//         url: 'http://www.zhuoran.fun:3000/playlist/detail'
-//     })
-// }
-
-
 // export const getDisassemble = (funName = 'main') => {
 //     return axios.request({
 //         method: 'post',
@@ -54,5 +39,3 @@ export const songlist = () => {
 //         }
 //     })
 // }
-
-
