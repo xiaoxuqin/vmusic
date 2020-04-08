@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import http from "./api/api"; 
 
+
+import axios from 'axios'
+Vue.prototype.$axios = axios
+axios.defaults.baseURL = '/api' 
 Vue.config.productionTip = false;
-
-Vue.prototype.$http = http; 
 
 new Vue({
   router,
