@@ -6,6 +6,13 @@ axios.defaults.withCredentials = true;
 axios.defaults.baseURL = '/api'
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
+let http = axios.create({
+    timeout: 3000,   //超时配置 3秒
+    responseType: 'json',   // 响应数据格式
+    responseEncoding: 'utf8',  // 响应数据编码
+});
+export default http;
+
 
 // export const uploadelf = () => {
 //     return axios.request({
@@ -14,6 +21,22 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 //     })
 // }
 
+export const start = () => {
+    return axios.request({
+        method: 'get',
+        url: '/personalized?limit=14'
+    })
+}
+
+export const songlist = () => {
+    return axios.request({
+        method: 'get',
+        url: '/top/playlist'
+    })
+}
+
+
+/*
 export const start = () => {
     return axios.request({
         method: 'get',
@@ -27,6 +50,7 @@ export const songlist = () => {
         url: 'http://www.zhuoran.fun:3000/top/playlist'
     })
 }
+*/
 
 // export const playlist = () => {
 //     return axios.request({

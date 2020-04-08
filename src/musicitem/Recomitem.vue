@@ -26,7 +26,7 @@ export default {
       console.log(this.id)
       axios.request({
         method: 'get',
-        url: 'http://www.zhuoran.fun:3000/playlist/detail?id='+this.id
+        url: '/playlist/detail?id='+this.id
       }).then(res => {
         console.log(res);
         this.musiclist = res.data.playlist;
