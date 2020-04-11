@@ -6,15 +6,6 @@ axios.defaults.withCredentials = true;
 axios.defaults.baseURL = '/api'
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-// let http = axios.create({
-//     timeout: 3000,   //超时配置 3秒
-//     responseType: 'json',   // 响应数据格式
-//     responseEncoding: 'utf8',  // 响应数据编码
-// });
-// export default http;
-
-
-
 export const start = () => {
     return axios.request({
         method: 'get',

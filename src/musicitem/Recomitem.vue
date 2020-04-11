@@ -12,14 +12,14 @@
       </div>
     </div>
     <div class="musiclist">
-      <ul>
+      <ul>$store.commit('add', 5)
           <span id="musicindex"></span>
           <span id="musictitle">音乐标题</span>
           <span id="musicsinger">歌手</span>
           <span>专辑</span>
       </ul>
       <ul v-for="(item,index) in musiclist.tracks" :key="index">
-        <li>
+        <li @click = "$store.commit('clickid', item.id)">
           <span class="indexnum">{{index+1}}</span>
           <span class="songname">{{item.name}}</span>
           <span class="singername">{{item.ar[0].name}}</span>
@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import store from '../vuex/store'   
 import axios from 'axios'
 export default {
     name:'Recomitem', 
@@ -40,6 +41,7 @@ export default {
         musiclist:[]
       }
     },
+    store,
     beforeMount:function(){
       console.log(this.id)
       axios.request({
@@ -51,7 +53,8 @@ export default {
       }).catch(error => {
         console.log(error);
       });
-    }
+    },
+   
   }
 </script>
 
@@ -135,4 +138,3 @@ export default {
   overflow: hidden;
 }
 </style>
-li:nth-child(3n){background:orange;}

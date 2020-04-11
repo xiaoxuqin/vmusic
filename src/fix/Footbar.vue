@@ -1,22 +1,80 @@
 <template>
   <div id="footbar">
+    <audio ref="audio" 
+      :src="$store.state.songUrl"
+      @timeupdate = "timeupdate"
+      >
+    </audio>
+
     <div id= "prev">
       <img src="../assets/prev.png" alt="">
     </div>
-    <div id= "now">
-      <img src="../assets/fplay.png" alt="">
-      <!-- <img src="../assets/stop.png" alt=""> -->
+    <div id= "now" >
+      <img ref="stop" src="../assets/fplay.png"  alt="" @click="musicplay" :style="playstyle">
+      <img ref="stop" src="../assets/stop.png" alt="" @click="musicstop" :style="stopstyle">
+      
     </div>
     <div id= "next">
       <img src="../assets/next.png" alt="">
     </div>
 
+    <span class="cur">{{curtime}}</span>
+    <input ref="range" type="range" min="0" max="100" value="0" class="range" @change="rangechange">
+    <span class="max" ref>{{maxtime}}</span>
+
   </div>
 </template>
 
-<script type="text/ecmascript-6">
+<script>
+  import store from '../vuex/store' 
   export default {
-      name:'Footbar'
+      name:'Footbar',
+      data(){
+        return{       
+          curtime:'00:00',
+          maxtime:'00:00',
+          playstyle:{
+            display:'block'
+          },
+          stopstyle:{
+            display:'none'
+          }
+        }
+      },
+      store,
+      methods:{
+        musicplay(){
+          var audio = this.$refs.audio;
+          audio.play();
+          this.maxtime = this.timestr(audio.duration);//音频长度
+          this.curtime = this.timestr(audio.currentTime); 
+          this.$refs.range.max = Math.round(audio.duration);
+          this.playstyle = {display:'none'}
+          this.stopstyle = {display:'block'}
+        },
+        musicstop(){
+          var audio = this.$refs.audio;
+          audio.pause();
+          this.playstyle = {display:'block'}
+          this.stopstyle = {display:'none'}
+        },
+        timeupdate(){
+          var audio = this.$refs.audio;
+          this.curtime = this.timestr(audio.currentTime);
+          this.$refs.range.value = Math.round(audio.currentTime);
+        },
+        rangechange(){
+          var audio = this.$refs.audio;
+          audio.currentTime=this.$refs.range.value;
+        },
+        timestr(time){
+          var m = Math.floor(time / 60);
+          var s = Math.floor(time % 60);
+          var _s = s < 10 ? '0' + s : s + '';
+          var _m = m < 10 ? '0' + m : m + '';
+          return _m + ":" + _s;          
+        }
+      }
   }
 </script>
 
@@ -24,6 +82,27 @@
 <style>
 #footbar{
   padding-left: 8px;
+  height: 50px;
+}
+#footbar  span{
+  display: inline-block;
+  margin: 20px 0px;
+}
+#footbar .range{
+  -webkit-appearance: none;
+  width:600px;
+  display: inline-block;
+  margin: 25px 5px;
+  background-color: rgb(182, 182, 182);
+  height: 3px;
+  outline: none;
+}
+#footbar .range::-webkit-slider-thumb{
+  -webkit-appearance: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: rgb(214, 24, 24);
 }
 #prev, #next{
   width: 38px;
@@ -55,6 +134,6 @@
   height: 25px;
   position: absolute;
   top: 8px;
-  left: 7px;
+  left: 8px;
 }
 </style>

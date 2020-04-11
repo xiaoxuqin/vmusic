@@ -41,7 +41,7 @@
   margin-top: 14px;
   outline: none;
 }
-input{
+#topbar input{
   text-decoration: none;
   width: 200px;
   border-radius: 10px;

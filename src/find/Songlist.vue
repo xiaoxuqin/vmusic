@@ -1,5 +1,4 @@
 <template>
-  <!-- if(list){ -->
     <div id="songlist">
       <button>全部歌单</button>
       <p>热门标签</p>
@@ -23,12 +22,11 @@
       </div>
     </div>
   
-  <!-- } -->
-  
   
 </template>
   
 <script>
+  import store from '../vuex/store' 
   import {songlist} from '../api/api'
   export default {
     name:'Songlist',
