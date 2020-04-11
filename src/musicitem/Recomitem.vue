@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="musiclist">
-      <ul>$store.commit('add', 5)
+      <ul>
           <span id="musicindex"></span>
           <span id="musictitle">音乐标题</span>
           <span id="musicsinger">歌手</span>

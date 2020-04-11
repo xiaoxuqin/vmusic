@@ -28,3 +28,10 @@ export default new Vuex.Store({
     state,
     mutations
 })
+
+/**
+ * 进度条颜色
+ * 双击播放、切换，不光点击图标
+ * 点击歌曲和点击图标播放
+ * 加载问题
+ */
