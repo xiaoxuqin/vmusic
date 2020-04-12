@@ -19,7 +19,8 @@
           <span>专辑</span>
       </ul>
       <ul v-for="(item,index) in musiclist.tracks" :key="index">
-        <li @click = "$store.commit('clickid', item.id)">
+        <li @dblclick = "$store.commit('clickid', item.id)">
+        <!-- <li @dbclick = "$store.commit('clickid', item.id)"> -->
           <span class="indexnum">{{index+1}}</span>
           <span class="songname">{{item.name}}</span>
           <span class="singername">{{item.ar[0].name}}</span>
@@ -53,7 +54,7 @@ export default {
       }).catch(error => {
         console.log(error);
       });
-    },
+    }
    
   }
 </script>

@@ -19,7 +19,7 @@
     </div>
 
     <span class="cur">{{curtime}}</span>
-    <input ref="range" type="range" min="0" max="100" value="0" class="range" @change="rangechange">
+    <input ref="range" type="range" min="0" max="100" value="0" class="range" @change="rangechange" :style="backgroundsize">
     <span class="max" ref>{{maxtime}}</span>
 
   </div>
@@ -38,6 +38,9 @@
           },
           stopstyle:{
             display:'none'
+          },
+          backgroundsize: {
+            backgroundSize:'0%'
           }
         }
       },
@@ -49,8 +52,8 @@
           this.maxtime = this.timestr(audio.duration);//音频长度
           this.curtime = this.timestr(audio.currentTime); 
           this.$refs.range.max = Math.round(audio.duration);
-          this.playstyle = {display:'none'}
-          this.stopstyle = {display:'block'}
+          this.playstyle = {display:'none'};
+          this.stopstyle = {display:'block'};
         },
         musicstop(){
           var audio = this.$refs.audio;
@@ -60,12 +63,17 @@
         },
         timeupdate(){
           var audio = this.$refs.audio;
+          this.maxtime = this.timestr(audio.duration);
           this.curtime = this.timestr(audio.currentTime);
           this.$refs.range.value = Math.round(audio.currentTime);
+          var redColor = audio.currentTime/audio.duration*100;
+          this.backgroundsize = {backgroundSize:redColor+"%"};
         },
         rangechange(){
           var audio = this.$refs.audio;
           audio.currentTime=this.$refs.range.value;
+          var redColor = audio.currentTime/audio.duration*100;
+          this.backgroundsize = {backgroundSize:redColor+"%"}
         },
         timestr(time){
           var m = Math.floor(time / 60);
@@ -93,9 +101,10 @@
   width:600px;
   display: inline-block;
   margin: 25px 5px;
-  background-color: rgb(182, 182, 182);
   height: 3px;
   outline: none;
+  background: -webkit-linear-gradient(rgb(214, 24, 24), rgb(214, 24, 24)) no-repeat rgb(182, 182, 182); 
+  
 }
 #footbar .range::-webkit-slider-thumb{
   -webkit-appearance: none;
