@@ -6,7 +6,7 @@
       >
     </audio>
 
-    <div id= "prev">
+    <div id= "prev" @click="prevsong">
       <img src="../assets/prev.png" alt="">
     </div>
     <div id= "now" >
@@ -14,7 +14,7 @@
       <img ref="stop" src="../assets/stop.png" alt="" @click="musicstop" :style="stopstyle">
       
     </div>
-    <div id= "next">
+    <div id= "next" @click="nextsong">
       <img src="../assets/next.png" alt="">
     </div>
 
@@ -27,6 +27,7 @@
 
 <script>
   import store from '../vuex/store' 
+  import axios from 'axios'
   export default {
       name:'Footbar',
       data(){
@@ -36,7 +37,7 @@
           playstyle:{
             display:'block'
           },
-          stopstyle:{
+          stopstyle:{ 
             display:'none'
           },
           backgroundsize: {
@@ -45,15 +46,25 @@
         }
       },
       store,
+      computed:{
+        f1(){
+          return this.$store.state.songUrl;
+        }
+      },
+      watch:{
+        f1(cur, old){
+          this.musicplay();
+        }
+      },
       methods:{
         musicplay(){
           var audio = this.$refs.audio;
-          audio.play();
           this.maxtime = this.timestr(audio.duration);//音频长度
           this.curtime = this.timestr(audio.currentTime); 
           this.$refs.range.max = Math.round(audio.duration);
           this.playstyle = {display:'none'};
           this.stopstyle = {display:'block'};
+          audio.play();
         },
         musicstop(){
           var audio = this.$refs.audio;
@@ -63,11 +74,16 @@
         },
         timeupdate(){
           var audio = this.$refs.audio;
-          this.maxtime = this.timestr(audio.duration);
-          this.curtime = this.timestr(audio.currentTime);
-          this.$refs.range.value = Math.round(audio.currentTime);
-          var redColor = audio.currentTime/audio.duration*100;
-          this.backgroundsize = {backgroundSize:redColor+"%"};
+          if(audio.duration){
+            this.maxtime = this.timestr(audio.duration);
+            this.curtime = this.timestr(audio.currentTime);
+            this.$refs.range.value = Math.round(audio.currentTime);
+            var redColor = audio.currentTime/audio.duration*100;
+            this.backgroundsize = {backgroundSize:redColor+"%"};
+          }else{
+            console.log('no  timeupdate')
+            audio.play();
+          }
         },
         rangechange(){
           var audio = this.$refs.audio;
@@ -81,8 +97,16 @@
           var _s = s < 10 ? '0' + s : s + '';
           var _m = m < 10 ? '0' + m : m + '';
           return _m + ":" + _s;          
+        },
+        prevsong(){
+
+        },
+        nextsong(){
+
         }
-      }
+      },
+
+      
   }
 </script>
 
