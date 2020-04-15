@@ -19,7 +19,7 @@
           <span>专辑</span>
       </ul>
       <ul v-for="(item,index) in musiclist.tracks" :key="index">
-        <li @dblclick = "$store.commit('clickid', item.id)">
+        <li @dblclick = "$store.commit('getmusicid', item.id);$store.commit('getmusiclist', index);">
           <span class="indexnum">{{index+1}}</span>
           <span class="songname">{{item.name}}</span>
           <span class="singername">{{item.ar[0].name}}</span>
@@ -48,7 +48,16 @@ export default {
         method: 'get',
         url: 'http://www.zhuoran.fun:3000/playlist/detail?id='+this.id
       }).then(res => {
-        // console.log(res);
+        console.log(res);
+        console.log(res.data.playlist.tracks.length);
+        var listlength = res.data.playlist.tracks.length;
+        var musicidlist = res.data.playlist.tracks;
+        var arr = [];
+        for(var i=0; i<listlength; i++){
+          arr.push(musicidlist[i].id);
+          this.$store.state.musiclist = arr;
+        }
+        // console.log(this.$store.state.musiclist);
         this.musiclist = res.data.playlist;
       }).catch(error => {
         console.log(error);
