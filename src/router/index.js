@@ -12,6 +12,7 @@ import Rank from '../find/Rank.vue'
 import Singer from '../find/Singer.vue'
 import Newmusic from '../find/Newmusic.vue'
 import Recomitem from '../musicitem/Recomitem.vue'
+import Lyric from '../musicitem/Lyric.vue'
 
 
 Vue.use(Router);
@@ -68,6 +69,11 @@ export default new Router({
             path:'/recomitem',
             name:'Recomitem',
             component:Recomitem
+        },
+        {
+            path:'/lyric',
+            name:'Lyric',
+            component:Lyric
         },
 
 

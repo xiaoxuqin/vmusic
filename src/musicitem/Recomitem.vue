@@ -5,8 +5,8 @@
       <div class="description">
         <p class="listname">{{musiclist.name}}</p>
         <div class="creator">
-          <img :src=musiclist.creator.avatarUrl alt="">
-          <p>{{musiclist.creator.nickname}}</p>
+          <img :src=avatarUrl alt="">
+          <p>{{nickname}}</p>
         </div>
         <p class="descri">简介：{{musiclist.description}}</p>
       </div>
@@ -19,12 +19,12 @@
           <span>专辑</span>
       </ul>
       <ul v-for="(item,index) in musiclist.tracks" :key="index">
-        <li @dblclick = "$store.commit('getmusicid', item.id);$store.commit('getmusiclist', index);">
-          <span class="indexnum">{{index+1}}</span>
-          <span class="songname">{{item.name}}</span>
-          <span class="singername">{{item.ar[0].name}}</span>
-          <span class="zhuanji">{{item.al.name}}</span>
-        </li>
+          <li @dblclick = "$store.commit('getmusicid', item.id);$store.commit('getmusiclist', index);">
+            <span class="indexnum">{{index+1}}</span>
+            <span class="songname">{{item.name}}</span>
+            <span class="singername">{{item.ar[0].name}}</span>
+            <span class="zhuanji">{{item.al.name}}</span>
+          </li>
       </ul>
     </div>
   </div>
@@ -37,28 +37,30 @@ export default {
     name:'Recomitem', 
     data() {
       return {
-        id: this.$route.params.id,
-        musiclist:[]
+        id: this.$route.query.id,
+        musiclist:[],
+        avatarUrl:'',
+        nickname:''
       }
     },
     store,
-    beforeMount:function(){
-      console.log(this.id)
+    mounted(){
+      console.log(this.id);
       axios.request({
         method: 'get',
         url: 'http://www.zhuoran.fun:3000/playlist/detail?id='+this.id
       }).then(res => {
-        console.log(res);
-        console.log(res.data.playlist.tracks.length);
-        var listlength = res.data.playlist.tracks.length;
-        var musicidlist = res.data.playlist.tracks;
-        var arr = [];
-        for(var i=0; i<listlength; i++){
-          arr.push(musicidlist[i].id);
-          this.$store.state.musiclist = arr;
-        }
-        // console.log(this.$store.state.musiclist);
-        this.musiclist = res.data.playlist;
+          // console.log(res);
+          var listlength = res.data.playlist.tracks.length;
+          var musicidlist = res.data.playlist.tracks;
+          var arr = [];
+          for(var i=0; i<listlength; i++){
+            arr.push(musicidlist[i].id);
+            this.$store.state.musiclist = arr;
+          }
+          this.musiclist = res.data.playlist;
+          this.avatarUrl = this.musiclist.creator.avatarUrl;
+          this.nickname = this.musiclist.creator.nickname;
       }).catch(error => {
         console.log(error);
       });
@@ -118,6 +120,7 @@ export default {
   line-height: 25px;
   overflow: hidden;
   cursor: default;
+  color: rgb(70, 68, 68);
 }
 .musiclist li .indexnum, #musicindex{
   width: 30px;

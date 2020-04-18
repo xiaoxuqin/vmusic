@@ -9,14 +9,16 @@
           <p class="name">每日歌曲推荐</p>
         </div>
         <div class="recommend_item" v-for="item in list">
-          <router-link :to="{name:'Recomitem', params:{id:item.id,}}">
-          <div class="recommend_img">
-            <img :src=item.picUrl alt="">
-            <p class="playCount">{{item.playCount}}</p>
-            <img src="../assets/play.png" alt="" class="play">
+         
+          <div class="recommend_img" @click = "$store.commit('getlistid', item.id)">
+            <router-link :to="{name: 'Recomitem', query:{id:item.id}}" >
+              <img :src=item.picUrl alt="">
+              <p class="playCount">{{item.playCount}}</p>
+              <img src="../assets/play.png" alt="" class="play"> 
+            </router-link>
           </div>
           <p class="name">{{item.name}}</p>
-        </router-link>
+        
         </div>     
     </div>
   </div>
@@ -25,6 +27,7 @@
 
 <script>
 import {start} from '../api/api'
+import store from '../vuex/store'   
 export default {
   name:'Recommond', 
   data() {
@@ -32,7 +35,8 @@ export default {
       list: []
     }
   },
-  beforeMount:function(){
+  store,
+  mounted(){
     start().then(res => {
       console.log(res.data);
       this.list = res.data.result;

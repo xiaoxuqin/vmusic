@@ -23,11 +23,13 @@
     <input ref="range" type="range" min="0" max="100" value="0" class="range" @change="rangechange" :style="backgroundsize">
     <span class="max" ref>{{maxtime}}</span>
 
-    <div class="musicdetail">
-      <img :src="$store.state.musicimg" alt="歌曲图片">
-      <p class="musicname">{{$store.state.musicname}}</p>
-      <p class="authorname">{{$store.state.authorname}}</p>
-    </div>
+    <router-link :to="{name:'Lyric', params:{id:$store.state.musicid}}">
+      <div class="musicdetail">
+        <img :src="$store.state.musicimg" alt="歌曲图片">
+        <p class="musicname">{{$store.state.musicname}}</p>
+        <p class="authorname">{{$store.state.authorname}}</p>
+      </div>
+    </router-link>
   </div>
 </template>
 
@@ -141,6 +143,9 @@
   padding-left: 8px;
   height: 50px;
   position: relative;
+}
+#footbar a{
+  color: rgb(32, 31, 31);
 }
 #footbar  span{
   display: inline-block;

@@ -8,13 +8,20 @@ const state = {
     songUrl: "",
     musiclist:[],
     playindex:'',
+    listid:'',
+    musicid:'',
     musicimg:'',
     musicname:'歌名',
     authorname:'作者'
 }
 
 const mutations = {
+    getlistid(state, id){
+        state.listid = id;
+        console.log(state.listid)
+    },
     getmusicid(state, id) {
+        state.musicid = id;
         axios.request({
             method: 'get',
             url: 'http://www.zhuoran.fun:3000/song/url?id=' + id
