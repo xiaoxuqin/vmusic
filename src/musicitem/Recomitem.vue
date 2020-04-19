@@ -45,7 +45,7 @@ export default {
     },
     store,
     mounted(){
-      console.log(this.id);
+      console.log("歌单id：  " + this.id);
       axios.request({
         method: 'get',
         url: 'http://www.zhuoran.fun:3000/playlist/detail?id='+this.id

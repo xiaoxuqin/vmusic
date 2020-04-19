@@ -28,6 +28,7 @@
         <img :src="$store.state.musicimg" alt="歌曲图片">
         <p class="musicname">{{$store.state.musicname}}</p>
         <p class="authorname">{{$store.state.authorname}}</p>
+        <p>{{$store.state.copyright}}</p>
       </div>
     </router-link>
   </div>
@@ -63,12 +64,20 @@
         // 播放
         musicplay(){
           var audio = this.$refs.audio;
-          this.maxtime = this.timestr(audio.duration);//音频长度
-          this.curtime = this.timestr(audio.currentTime); 
-          this.$refs.range.max = Math.round(audio.duration);
-          this.playstyle = {display:'none'};
-          this.stopstyle = {display:'block'};
-          audio.play();
+          if(this.$store.state.songUrl){
+            this.maxtime = this.timestr(audio.duration);//音频长度
+            this.curtime = this.timestr(audio.currentTime); 
+            this.$refs.range.max = Math.round(audio.duration);
+            this.playstyle = {display:'none'};
+            this.stopstyle = {display:'block'};
+            audio.play();
+          }else{
+            console.log('暂无版权');
+            this.maxtime = "00:00";
+            this.curtime = "00:00"; 
+            this.playstyle = {display:'block'};
+            this.stopstyle = {display:'none'};
+          }
         },
         // 暂停
         musicstop(){
@@ -80,15 +89,20 @@
         // 改变其播放位置时运行
         timeupdate(){
           var audio = this.$refs.audio;
-          if(audio.duration){
-            this.maxtime = this.timestr(audio.duration);
-            this.curtime = this.timestr(audio.currentTime);
-            this.$refs.range.value = Math.round(audio.currentTime);
-            var redColor = audio.currentTime/audio.duration*100;
-            this.backgroundsize = {backgroundSize:redColor+"%"};
+          if(this.$store.state.songUrl){
+            if(audio.duration){
+              this.maxtime = this.timestr(audio.duration);
+              this.curtime = this.timestr(audio.currentTime);
+              this.$refs.range.value = Math.round(audio.currentTime);
+              var redColor = audio.currentTime/audio.duration*100;
+              this.backgroundsize = {backgroundSize:redColor+"%"};
+            }else{
+              audio.play();
+            }
           }else{
-            // console.log('no  timeupdate')
-            audio.play();
+            this.$refs.range.value = 0;
+            var redColor = 0;
+            this.backgroundsize = {backgroundSize:redColor+"%"};
           }
         },
         // 自动播放下一首

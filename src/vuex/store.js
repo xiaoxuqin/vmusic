@@ -12,7 +12,8 @@ const state = {
     musicid:'',
     musicimg:'',
     musicname:'歌名',
-    authorname:'作者'
+    authorname:'作者',
+    copyright:''
 }
 
 const mutations = {
@@ -27,30 +28,46 @@ const mutations = {
             url: 'http://www.zhuoran.fun:3000/song/url?id=' + id
         }).then(res => {            
             if(res.data.data[0].url){
-                console.log('url OK');
+                // console.log(res.data);
                 state.songUrl = res.data.data[0].url;
+                axios.request({
+                    method: 'get',
+                    url: 'http://www.zhuoran.fun:3000/song/detail?ids=' + id
+                }).then(res => {
+                    console.log(res.data.songs[0]);
+                    state.musicimg = res.data.songs[0].al.picUrl;
+                    state.musicname = res.data.songs[0].name;
+                    state.authorname = res.data.songs[0].ar[0].name;
+                    state.copyright = '';
+                }).catch(error => {
+                    console.log(error);
+                });
             }else{
-                console.log('url NO')
+                console.log('url NO');
+                // console.log(res.data);
+                state.songUrl = "";
+                axios.request({
+                    method: 'get',
+                    url: 'http://www.zhuoran.fun:3000/song/detail?ids=' + id
+                }).then(res => {
+                    // console.log(res.data.songs[0]);
+                    state.musicimg = res.data.songs[0].al.picUrl;
+                    state.musicname = "";
+                    state.authorname = "";
+                    state.copyright = '暂无版权';
+                }).catch(error => {
+                    console.log(error);
+                });
             }
         }).catch(error => {
             console.log(error);
         });
-        axios.request({
-            method: 'get',
-            url: 'http://www.zhuoran.fun:3000/song/detail?ids=' + id
-        }).then(res => {
-            console.log(res.data.songs[0])
-            state.musicimg = res.data.songs[0].al.picUrl;
-            state.musicname = res.data.songs[0].name;
-            state.authorname = res.data.songs[0].ar[0].name;
-        }).catch(error => {
-            console.log(error);
-        });
+        
     },
-    getmusiclist(state,index){
+    getmusiclist(state,index){       
         state.playindex = index;
-        console.log(index)
-    }
+        console.log('state.playindex:  ',state.playindex);
+    }    
 }
 
 export default new Vuex.Store({
