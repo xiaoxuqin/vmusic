@@ -22,7 +22,7 @@ export default {
     name:"Lyric",
     data() {
         return {
-            id: this.$route.params.id,
+            // id: this.$store.state.musicid,
             wholelyric:'',
             lyric:[],
             time:[],
@@ -36,6 +36,10 @@ export default {
     computed:{
         f1(){
           return this.$store.state.currenttime;
+        },
+        f2(){
+            console.log(111)
+            return this.$store.state.songUrl;
         }
     },
     watch:{
@@ -43,7 +47,7 @@ export default {
             this.$nextTick(() => {
                 this.lysicli = document.querySelectorAll("#lyricli");              
             });
-                for(var i=this.currentlyric; i<this.lyric.length; i++){                  
+                for(var i=0; i<this.lyric.length; i++){                  
                     if (this.lyric[i + 1] && cur < this.time[i+1] && cur > this.time[i]) {
                         this.currentlyric = i;
                         for(var j=0; j<this.lysicli.length; j++){
@@ -59,30 +63,39 @@ export default {
                         }
                     }
                 }
+        },
+        f2(){
+            // this.lyric = [],
+            // this.time = [],
+            console.log('change url')
+            this.init();
         }
+        
     },
     mounted () {
         this.init();
     },
     methods: {
         init() {
-            if (this.id) {
-                console.log(this.id);
+            if (this.$store.state.musicid) {
+                console.log(this.$store.state.musicid);
                 axios.request({
                     method:'get',
-                    url:'http://www.zhuoran.fun:3000/lyric?id=' + this.id
+                    url:'http://www.zhuoran.fun:3000/lyric?id=' + this.$store.state.musicid
                 }).then(res => {
-                    console.log(res);
-                    console.log(res.data.lrc.lyric);
-                    console.log(res.data.lrc.lyric.split('\n').length)
-                    this.wholelyric = res.data.lrc.lyric.split('\n').slice(0,-3);
+                    // console.log(res);
+                    // console.log(res.data.lrc.lyric);
+                    // console.log(res.data.lrc.lyric.split('\n').length)
+                    this.lyric = [],
+                    this.time = [],
+                    this.wholelyric = res.data.lrc.lyric.split('\n').slice(0,-1);
                     for(var i=0; i<this.wholelyric.length; i++){
                         let temp = this.wholelyric[i].split(/\[(.+?)\]/);
                         this.lyric.push(temp[2]);
                         this.time.push(temp[1]);
                     }
-                    console.log( this.lyric.length);
-                    console.log( this.time.length);
+                    // console.log( this.lyric.length);
+                    // console.log( this.time.length);
                 }).catch(error => {
                     console.log(error);
                 })

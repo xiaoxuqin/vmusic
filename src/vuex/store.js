@@ -36,6 +36,7 @@ const mutations = {
             if(res.data.data[0].url){
                 // console.log(res.data);
                 state.songUrl = res.data.data[0].url;
+                // console.log('我 change  了！！')
                 axios.request({
                     method: 'get',
                     url: 'http://www.zhuoran.fun:3000/song/detail?ids=' + id
