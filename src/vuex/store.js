@@ -13,10 +13,16 @@ const state = {
     musicimg:'',
     musicname:'歌名',
     authorname:'作者',
-    copyright:''
+    copyright:'',
+    currenttime:''
 }
 
 const mutations = {
+
+    getcurrenttime(state, time){
+        state.currenttime = time;
+        // console.log(state.listid)
+    },
     getlistid(state, id){
         state.listid = id;
         console.log(state.listid)

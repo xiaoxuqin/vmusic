@@ -7,12 +7,11 @@
         <h1>{{this.$store.state.musicname}}</h1>
         <h4>歌手： {{this.$store.state.authorname}}</h4>
         <ul v-for="(item,index) in lyric" :key="index">
-            <li>
+            <li :style ="lycstyle" id="lyricli">
                 {{lyric[index]}}
             </li>
         </ul>
       </div>
-    
   </div>
 </template>
 
@@ -25,12 +24,45 @@ export default {
         return {
             id: this.$route.params.id,
             wholelyric:'',
-            lyric:[]
+            lyric:[],
+            time:[],
+            currentlyric:0,
+            lycstyle:{},
+            lycstyle1:{color:"red"},
+            lysicli:[]
         }
     },
     store,
+    computed:{
+        f1(){
+          return this.$store.state.currenttime;
+        }
+    },
+    watch:{
+        f1(cur, old){
+            this.$nextTick(() => {
+                this.lysicli = document.querySelectorAll("#lyricli");              
+            });
+                for(var i=this.currentlyric; i<this.lyric.length; i++){                  
+                    if (this.lyric[i + 1] && cur < this.time[i+1] && cur > this.time[i]) {
+                        this.currentlyric = i;
+                        for(var j=0; j<this.lysicli.length; j++){
+                            if(j==i){
+                                this.lysicli[j].style.color = 'rgb(214, 24, 24)';
+                                this.lysicli[j].style.fontWeight = 'bold';
+                                this.lysicli[j].style.fontSize = '18px';
+                            }else{
+                                this.lysicli[j].style.color = 'black';
+                                this.lysicli[j].style.fontWeight = 'normal';
+                                this.lysicli[j].style.fontSize = '14px';
+                            }
+                        }
+                    }
+                }
+        }
+    },
     mounted () {
-        this.init()
+        this.init();
     },
     methods: {
         init() {
@@ -43,23 +75,23 @@ export default {
                     console.log(res);
                     console.log(res.data.lrc.lyric);
                     console.log(res.data.lrc.lyric.split('\n').length)
-                    this.wholelyric = res.data.lrc.lyric.split('\n').slice(1,-1);
+                    this.wholelyric = res.data.lrc.lyric.split('\n').slice(0,-3);
                     for(var i=0; i<this.wholelyric.length; i++){
-                        this.lyric.push(this.wholelyric[i].split(']')[1])
+                        let temp = this.wholelyric[i].split(/\[(.+?)\]/);
+                        this.lyric.push(temp[2]);
+                        this.time.push(temp[1]);
                     }
                     console.log( this.lyric.length);
-
+                    console.log( this.time.length);
                 }).catch(error => {
                     console.log(error);
                 })
-
             } 
         }
-    }
+    },
 }
 </script>
 
- 
 <style>
 #musiclyric{
     height: 545px;
@@ -89,5 +121,6 @@ export default {
     color: rgb(85, 82, 82);
     display: inline-block;
     font-size: 14px;
+    /* color:red */
 }
 </style>

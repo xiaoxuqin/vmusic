@@ -93,6 +93,7 @@
             if(audio.duration){
               this.maxtime = this.timestr(audio.duration);
               this.curtime = this.timestr(audio.currentTime);
+              this.$store.commit('getcurrenttime', this.curtime);
               this.$refs.range.value = Math.round(audio.currentTime);
               var redColor = audio.currentTime/audio.duration*100;
               this.backgroundsize = {backgroundSize:redColor+"%"};
