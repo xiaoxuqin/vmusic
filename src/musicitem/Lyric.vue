@@ -4,13 +4,16 @@
           <img :src="this.$store.state.musicimg" alt="">
       </div>
       <div class="lyric">
-        <h1>{{this.$store.state.musicname}}</h1>
-        <h4>歌手： {{this.$store.state.authorname}}</h4>
-        <ul v-for="(item,index) in lyric" :key="index">
-            <li :style ="lycstyle" id="lyricli">
-                {{lyric[index]}}
-            </li>
-        </ul>
+        <div ref="lrc">
+            <h1>{{this.$store.state.musicname}}</h1>
+            <h4>歌手： {{this.$store.state.authorname}}</h4>
+            <ul v-for="(item,index) in lyric" :key="index" >
+                <li id="lyricli">
+                    {{lyric[index]}}
+                </li>
+            </ul>
+        </div>
+        
       </div>
   </div>
 </template>
@@ -27,8 +30,6 @@ export default {
             lyric:[],
             time:[],
             currentlyric:0,
-            lycstyle:{},
-            lycstyle1:{color:"red"},
             lysicli:[]
         }
     },
@@ -45,32 +46,14 @@ export default {
     watch:{
         f1(cur, old){
             this.$nextTick(() => {
-                this.lysicli = document.querySelectorAll("#lyricli");              
+                this.lysicli = document.querySelectorAll("#lyricli");             
             });
-                for(var i=0; i<this.lyric.length; i++){                  
-                    if (this.lyric[i + 1] && cur < this.time[i+1] && cur > this.time[i]) {
-                        this.currentlyric = i;
-                        for(var j=0; j<this.lysicli.length; j++){
-                            if(j==i){
-                                this.lysicli[j].style.color = 'rgb(214, 24, 24)';
-                                this.lysicli[j].style.fontWeight = 'bold';
-                                this.lysicli[j].style.fontSize = '18px';
-                            }else{
-                                this.lysicli[j].style.color = 'black';
-                                this.lysicli[j].style.fontWeight = 'normal';
-                                this.lysicli[j].style.fontSize = '14px';
-                            }
-                        }
-                    }
-                }
+            this. lyricchange(cur);    
         },
         f2(){
-            // this.lyric = [],
-            // this.time = [],
             console.log('change url')
             this.init();
         }
-        
     },
     mounted () {
         this.init();
@@ -100,6 +83,29 @@ export default {
                     console.log(error);
                 })
             } 
+        },
+        lyricchange(cur){
+            var lrcDiv = this.$refs.lrc  ; 
+            for(var i=0; i<this.lyric.length; i++){           
+                if (this.lyric[i + 1] && cur < this.time[i+1] && cur > this.time[i]) {
+                    // this.$refs.lrc.style.top = -((i - 2) * 30) + "px";
+                    this.currentlyric = i;
+                    for(var j=0; j<this.lysicli.length; j++){
+                        if(j==i){
+                            this.lysicli[j].style.color = 'rgb(214, 24, 24)';
+                            this.lysicli[j].style.fontWeight = 'bold';
+                            this.lysicli[j].style.fontSize = '18px';
+                            if(j>6){
+                                lrcDiv.style.marginTop = -((i-4) * 25) + "px"
+                            }
+                        }else{
+                            this.lysicli[j].style.color = 'black';
+                            this.lysicli[j].style.fontWeight = 'normal';
+                            this.lysicli[j].style.fontSize = '14px';
+                        }
+                    }
+                }
+            }
         }
     },
 }
