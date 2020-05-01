@@ -4,16 +4,17 @@
           <img :src="this.$store.state.musicimg" alt="">
       </div>
       <div class="lyric">
-        <div ref="lrc">
-            <h1>{{this.$store.state.musicname}}</h1>
+            <h2>{{this.$store.state.musicname}}</h2>
             <h4>歌手： {{this.$store.state.authorname}}</h4>
-            <ul v-for="(item,index) in lyric" :key="index" >
-                <li id="lyricli">
-                    {{lyric[index]}}
-                </li>
-            </ul>
+        <div class="lyricdetail">
+            <div  ref="lrc">
+                <ul v-for="(item,index) in lyric" :key="index" >
+                    <li id="lyricli">
+                        {{lyric[index]}}
+                    </li>
+                </ul>
+            </div>
         </div>
-        
       </div>
   </div>
 </template>
@@ -36,10 +37,11 @@ export default {
     store,
     computed:{
         f1(){
+            // console.log('currenttime change!');
           return this.$store.state.currenttime;
         },
         f2(){
-            console.log(111)
+            // console.log('change url')
             return this.$store.state.songUrl;
         }
     },
@@ -51,7 +53,6 @@ export default {
             this. lyricchange(cur);    
         },
         f2(){
-            console.log('change url')
             this.init();
         }
     },
@@ -59,15 +60,28 @@ export default {
         this.init();
     },
     methods: {
+        animate(obj, json){
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function () {
+                for (var attr in json) {
+                    var now = 0;
+                    now = parseInt(getComputedStyle(obj, null)[attr]);
+                    var speed = (json[attr] - now) / 8;
+                    speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                    var cur = now + speed;
+                    obj.style[attr] = cur + 'px';
+                }
+            }, 30)
+        },
         init() {
             if (this.$store.state.musicid) {
-                console.log(this.$store.state.musicid);
+                // console.log(this.$store.state.musicid);
                 axios.request({
                     method:'get',
                     url:'http://www.zhuoran.fun:3000/lyric?id=' + this.$store.state.musicid
                 }).then(res => {
                     // console.log(res);
-                    // console.log(res.data.lrc.lyric);
+                    console.log(res.data.lrc.lyric);
                     // console.log(res.data.lrc.lyric.split('\n').length)
                     this.lyric = [],
                     this.time = [],
@@ -77,7 +91,7 @@ export default {
                         this.lyric.push(temp[2]);
                         this.time.push(temp[1]);
                     }
-                    // console.log( this.lyric.length);
+                    // console.log( this.lyric);
                     // console.log( this.time.length);
                 }).catch(error => {
                     console.log(error);
@@ -85,23 +99,28 @@ export default {
             } 
         },
         lyricchange(cur){
+            // console.log(cur);
             var lrcDiv = this.$refs.lrc  ; 
             for(var i=0; i<this.lyric.length; i++){           
                 if (this.lyric[i + 1] && cur < this.time[i+1] && cur > this.time[i]) {
-                    // this.$refs.lrc.style.top = -((i - 2) * 30) + "px";
                     this.currentlyric = i;
                     for(var j=0; j<this.lysicli.length; j++){
                         if(j==i){
+                            // console.log(this.lysicli[j])
                             this.lysicli[j].style.color = 'rgb(214, 24, 24)';
                             this.lysicli[j].style.fontWeight = 'bold';
-                            this.lysicli[j].style.fontSize = '18px';
-                            if(j>6){
-                                lrcDiv.style.marginTop = -((i-4) * 25) + "px"
+                            this.lysicli[j].style.fontSize = '15px';
+                            if(j>8){
+                                this.animate(lrcDiv,{marginTop: -((i-8) * 25)});
+                                // lrcDiv.style.marginTop = -((j-8) * 25) + "px"
+                            }else{
+                                this.animate(lrcDiv,{marginTop: 0});
+                                // lrcDiv.style.marginTop = "0px"
                             }
                         }else{
                             this.lysicli[j].style.color = 'black';
                             this.lysicli[j].style.fontWeight = 'normal';
-                            this.lysicli[j].style.fontSize = '14px';
+                            this.lysicli[j].style.fontSize = '12px';
                         }
                     }
                 }
@@ -113,18 +132,15 @@ export default {
 
 <style>
 #musiclyric{
-    height: 545px;
+    height: 600px;
     width: 95%;
-    overflow: hidden;
-    overflow-y: scroll;
 }
 #musiclyric .lyric{
-    margin:50px 50px;
+    margin-top:10px;
+    margin-right: 50px;
     width: 40%;
     height: 400px;
     float: right;
-    overflow: hidden;
-    overflow-y: scroll;
 }
 #musiclyric .lyric h4{
     margin-bottom: 20px;
@@ -133,13 +149,17 @@ export default {
 #musiclyric .musicimg img{
     width: 30%;
     float: left;
-    margin: 50px 50px;
+    margin: 70px;
 }
 #musiclyric li{
     line-height: 25px;
     color: rgb(85, 82, 82);
     display: inline-block;
-    font-size: 14px;
-    /* color:red */
+    font-size: 12px;
+}
+#musiclyric .lyricdetail{
+    height: 350px;
+    overflow: hidden; 
+    overflow-y: auto; 
 }
 </style>
