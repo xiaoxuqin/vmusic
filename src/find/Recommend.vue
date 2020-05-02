@@ -38,7 +38,7 @@ export default {
   store,
   mounted(){
     start().then(res => {
-      console.log(res.data);
+      // console.log(res.data);
       this.list = res.data.result;
     }).catch(error => {
       console.log(error);

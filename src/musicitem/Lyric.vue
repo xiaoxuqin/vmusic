@@ -4,16 +4,14 @@
           <img :src="this.$store.state.musicimg" alt="">
       </div>
       <div class="lyric">
-            <h2>{{this.$store.state.musicname}}</h2>
-            <h4>歌手： {{this.$store.state.authorname}}</h4>
-        <div class="lyricdetail">
-            <div  ref="lrc">
-                <ul v-for="(item,index) in lyric" :key="index" >
-                    <li id="lyricli">
-                        {{lyric[index]}}
-                    </li>
-                </ul>
-            </div>
+        <h2>{{this.$store.state.musicname}}</h2>
+        <h4>歌手： {{this.$store.state.authorname}}</h4>
+        <div id="lyricdetail" ref="scrolldiv" @mousewheel="mousewheel">
+            <ul v-for="(item,index) in lyric" :key="index">
+                <li id="lyricli">
+                    {{lyric[index]}}
+                </li>
+            </ul>
         </div>
       </div>
   </div>
@@ -26,12 +24,12 @@ export default {
     name:"Lyric",
     data() {
         return {
-            // id: this.$store.state.musicid,
             wholelyric:'',
             lyric:[],
             time:[],
-            currentlyric:0,
-            lysicli:[]
+            lysicli:[],
+            scroll:true,
+            scrolltimeout:null,
         }
     },
     store,
@@ -60,18 +58,26 @@ export default {
         this.init();
     },
     methods: {
-        animate(obj, json){
-            clearInterval(obj.timer);
-            obj.timer = setInterval(function () {
-                for (var attr in json) {
+        mousewheel(){
+            var scrollDiv = this.$refs.scrolldiv; 
+            clearInterval(scrollDiv.timer);
+            clearInterval(this.scrolltimeout);
+            this.scroll = false;
+            var that = this; 
+            this.scrolltimeout = setTimeout(function () { 
+                that.scroll = true;
+            },5000)
+        },
+        animate(obj, number){
+                clearInterval(obj.timer);
+                obj.timer = setInterval(function () {
                     var now = 0;
-                    now = parseInt(getComputedStyle(obj, null)[attr]);
-                    var speed = (json[attr] - now) / 8;
+                    now =parseInt(obj.scrollTop);
+                    var speed = (number - now) / 8;
                     speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
                     var cur = now + speed;
-                    obj.style[attr] = cur + 'px';
-                }
-            }, 30)
+                    obj.scrollTop = cur;
+                }, 30);
         },
         init() {
             if (this.$store.state.musicid) {
@@ -81,8 +87,6 @@ export default {
                     url:'http://www.zhuoran.fun:3000/lyric?id=' + this.$store.state.musicid
                 }).then(res => {
                     // console.log(res);
-                    console.log(res.data.lrc.lyric);
-                    // console.log(res.data.lrc.lyric.split('\n').length)
                     this.lyric = [],
                     this.time = [],
                     this.wholelyric = res.data.lrc.lyric.split('\n').slice(0,-1);
@@ -91,31 +95,28 @@ export default {
                         this.lyric.push(temp[2]);
                         this.time.push(temp[1]);
                     }
-                    // console.log( this.lyric);
-                    // console.log( this.time.length);
                 }).catch(error => {
                     console.log(error);
                 })
             } 
         },
         lyricchange(cur){
-            // console.log(cur);
-            var lrcDiv = this.$refs.lrc  ; 
+            var scrollDiv = this.$refs.scrolldiv; 
             for(var i=0; i<this.lyric.length; i++){           
                 if (this.lyric[i + 1] && cur < this.time[i+1] && cur > this.time[i]) {
-                    this.currentlyric = i;
                     for(var j=0; j<this.lysicli.length; j++){
                         if(j==i){
-                            // console.log(this.lysicli[j])
                             this.lysicli[j].style.color = 'rgb(214, 24, 24)';
                             this.lysicli[j].style.fontWeight = 'bold';
                             this.lysicli[j].style.fontSize = '15px';
-                            if(j>8){
-                                this.animate(lrcDiv,{marginTop: -((i-8) * 25)});
-                                // lrcDiv.style.marginTop = -((j-8) * 25) + "px"
-                            }else{
-                                this.animate(lrcDiv,{marginTop: 0});
-                                // lrcDiv.style.marginTop = "0px"
+                            if(this.scroll){
+                                if(j>8){
+                                    // scrollDiv.scrollTop = 25*(i-8);
+                                    this.animate(scrollDiv,25*(i-8));
+                                }else{
+                                    // scrollDiv.scrollTop = 0;
+                                    this.animate(scrollDiv,0);
+                                }
                             }
                         }else{
                             this.lysicli[j].style.color = 'black';
@@ -157,7 +158,7 @@ export default {
     display: inline-block;
     font-size: 12px;
 }
-#musiclyric .lyricdetail{
+#musiclyric #lyricdetail{
     height: 350px;
     overflow: hidden; 
     overflow-y: auto; 

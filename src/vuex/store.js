@@ -25,7 +25,7 @@ const mutations = {
     },
     getlistid(state, id){
         state.listid = id;
-        console.log(state.listid)
+        // console.log(state.listid)
     },
     getmusicid(state, id) {
         state.musicid = id;
@@ -73,7 +73,7 @@ const mutations = {
     },
     getmusiclist(state,index){       
         state.playindex = index;
-        console.log('state.playindex:  ',state.playindex);
+        // console.log('state.playindex:  ',state.playindex);
     }    
 }
 

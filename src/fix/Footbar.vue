@@ -108,7 +108,7 @@
         },
         // 自动播放下一首
         musicend(){
-          console.log('music play over');
+          // console.log('music play over');
           this.nextsong();
         },
         // 手动拖动进度条
@@ -142,7 +142,7 @@
           // console.log(this.$store.state.musiclist.length);
           if(this.$store.state.playindex<this.$store.state.musiclist.length-1){  
             this.$store.state.playindex++;
-            console.log('now' + this.$store.state.playindex);
+            // console.log('now' + this.$store.state.playindex);
             this.$store.commit('getmusicid', this.$store.state.musiclist[this.$store.state.playindex]);
           }
         }
